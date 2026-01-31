@@ -1,0 +1,55 @@
+name: Newman API Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install Newman and reporters
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-html
+          npm install -g newman-reporter-htmlextra
+      
+      - name: Create reports directory
+        run: mkdir -p reports
+      
+      - name: Run API tests with Newman
+        run: |
+          newman run api-postman-automation.json \
+            --reporters cli,html,htmlextra \
+            --reporter-html-export reports/newman-report.html \
+            --reporter-htmlextra-export reports/newman-detailed-report.html \
+            --reporter-htmlextra-title "Restful Booker API Test Report" \
+            --reporter-htmlextra-showOnlyFails false
+        continue-on-error: true
+      
+      - name: Upload test reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: newman-test-reports
+          path: reports/
+          retention-days: 30
+      
+      - name: Display test summary
+        if: always()
+        run: |
+          echo "## Test Execution Complete" >> $GITHUB_STEP_SUMMARY
+          echo "Test reports have been generated and uploaded as artifacts." >> $GITHUB_STEP_SUMMARY
+          echo "Download the artifacts to view the detailed HTML reports." >> $GITHUB_STEP_SUMMARY

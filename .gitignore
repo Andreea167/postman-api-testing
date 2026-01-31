@@ -1,0 +1,25 @@
+# Newman reports (generated locally)
+reports/
+*.html
+
+# Node modules (if you add any npm dependencies)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
