@@ -1,8 +1,8 @@
 # Postman API Testing with Newman
 
-This repository contains automated API tests for the Restful Booker API, designed to run with Newman in GitHub Actions.
+This repository contains a Postman collection including automated API tests, designed to run with Newman in GitHub Actions.
 
-## 📋 Test Collection
+## Test Collection
 
 The collection includes 13 API tests covering:
 
@@ -13,7 +13,7 @@ The collection includes 13 API tests covering:
   - Create, read, update, and delete bookings
   - Error handling (404, 403 responses)
 
-## 🚀 GitHub Actions Workflow
+## GitHub Actions Workflow
 
 The workflow automatically runs on:
 - Push to `main` or `master` branch
@@ -52,7 +52,7 @@ npm install -g newman-reporter-htmlextra
 newman run api-postman-automation.json --reporters cli,htmlextra --reporter-htmlextra-export report.html
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 .
@@ -63,7 +63,7 @@ newman run api-postman-automation.json --reporters cli,htmlextra --reporter-html
 └── README.md                   # This file
 ```
 
-## 🔧 API Endpoints Tested
+## API Endpoints Tested
 
 Base URL: `https://restful-booker.herokuapp.com`
 
